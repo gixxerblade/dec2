@@ -10,16 +10,13 @@ interface LayoutProps {
   children?: ReactNode
 }
 
-
 export const Layout: FC<LayoutProps> = ({ children, title, content }: LayoutProps) => {
   return (
     <>
       <HeaderInfo title={title} content={content} />
-      <body className="h-auto">
-        <Header links={links} />
-        <main>{children}</main>
-        <Footer />
-      </body>
+      <Header links={links} />
+      <main>{children}</main>
+      <Footer />
     </>
   )
 }

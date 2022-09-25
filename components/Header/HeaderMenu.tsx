@@ -1,10 +1,10 @@
-import { createStyles, Header, Menu, Group, Center, Burger, Container } from '@mantine/core';
+import { createStyles, Header, Menu, Group, Center, Burger, Container, useMantineColorScheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons';
 import Link from 'next/link';
 import { NextLink } from '@mantine/next';
-import { Dec } from '../../svgs/dec';
 import Image from 'next/image';
+import { ColorSchemeToggle } from '../ColorSchemeTogle';
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -42,7 +42,7 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 500,
 
     '&:hover': {
-      color: theme.colorScheme === 'dark' ? theme.colors.brand[0] : theme.colors.brand[3],
+      color: theme.colorScheme === 'dark' ? theme.colors.brand[3] : theme.colors.brand[3],
     },
   },
 
@@ -58,6 +58,7 @@ export interface HeaderSearchProps {
 export const HeaderRaw = ({ links }: HeaderSearchProps) => {
   const [opened, { toggle }] = useDisclosure(false);
   const { classes } = useStyles();
+  const { colorScheme } = useMantineColorScheme();
 
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
@@ -88,29 +89,35 @@ export const HeaderRaw = ({ links }: HeaderSearchProps) => {
       <Link
         href={link.link}
         key={link.label}
-        onClick={(event) => event.preventDefault()}
-        passHref
+        onClick={(event) => {
+          console.log('clicked', link, link.link)
+          event.preventDefault()
+        }}
       >
-        <a
-          className={classes.link}
-          href={link.link}
-        >
+        <a className={classes.link}>
           {link.label}
         </a>
       </Link>
     );
   });
 
-  console.log(items)
   return (
     <Header height={56} mb={120}>
       <Container>
         <div className={classes.inner}>
-          <Link href="/" passHref>
-            <Image src="/dec.svg" alt="DEC logo" width={100} height={50} />
+          <Link href="/">
+            <a>
+              <Image
+                src={colorScheme === 'dark' ? '/dec_dark.svg' : '/dec.svg'}
+                alt="DEC logo"
+                width={155}
+                height={50}
+              />
+            </a>
           </Link>
           <Group spacing={5} className={classes.links}>
             {items}
+            <ColorSchemeToggle />
           </Group>
           <div className='md:none lg:none xl:none 2xl:none'>
             <Menu
@@ -127,6 +134,7 @@ export const HeaderRaw = ({ links }: HeaderSearchProps) => {
               <Menu.Dropdown>
                 <Group className={classes.menu}>
                   {items}
+                  <ColorSchemeToggle />
                 </Group>
               </Menu.Dropdown>
             </Menu>

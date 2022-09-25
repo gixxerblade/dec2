@@ -1,10 +1,24 @@
+import { useState } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
+import { Col, ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { Layout } from '../components/Layout';
+import { getCookie, setCookie } from 'cookies-next';
 
-export default function App(props: AppProps) {
+
+interface MainProps extends AppProps {
+  colorScheme: ColorScheme,
+}
+
+const App = (props: MainProps) => {
   const { Component, pageProps } = props;
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+
+  const toggleColorScheme = (value: ColorScheme) => {
+    const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
+    setColorScheme(nextColorScheme);
+    setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 })
+  }
 
   return (
     <>
@@ -12,22 +26,25 @@ export default function App(props: AppProps) {
         <title>Page title</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme override here */
-          colorScheme: 'light',
-          colors: {
-            brand: ['#ffe6e6', '#feb3b4', '#feb3b4', '#fd4f4f', '#fc1c1d', '#e30304', '#b00203', '#7e0202', '#4c0101', '#190000'],
-          }
-        }}
-      >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </MantineProvider>
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            /** Put your mantine theme override here */
+            colorScheme,
+            colors: {
+              brand: ['#ffe6e6', '#feb3b4', '#feb3b4', '#fd4f4f', '#fc1c1d', '#e30304', '#b00203', '#7e0202', '#4c0101', '#190000'],
+            }
+          }}
+        >
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </MantineProvider>
+      </ColorSchemeProvider>
     </>
   );
 }
+
+export default App;
