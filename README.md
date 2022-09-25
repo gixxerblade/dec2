@@ -2,18 +2,18 @@
 
 TODO:
 
-- [] add contentful
-- [] add video from contentful to homepage
-- [] build leadership page
-- [] build membership page
-- [] build accordion component
-- [] build bylaws page
-- [] build privacy policy page
-- [] build big branch page
-- [] build hendo page
-- [] build contact page, add contact form. Can vercel handle this like netlify?
-- [] add protected route for admin dashboard
-- [] add admin dashboard for changing trail status
+- [ ] add contentful
+- [ ] add video from contentful to homepage
+- [ ] build leadership page
+- [ ] build membership page
+- [ ] build accordion component
+- [ ] build bylaws page
+- [ ] build privacy policy page
+- [ ] build big branch page
+- [ ] build hendo page
+- [ ] build contact page, add contact form. Can vercel handle this like netlify?
+- [ ] add protected route for admin dashboard
+- [ ] add admin dashboard for changing trail status
   
 ## Deploy on Vercel
 
