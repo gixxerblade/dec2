@@ -1,5 +1,6 @@
 import { ReactNode, FC } from 'react';
-import { HeaderMenu, HeaderSearchProps } from './Header/HeaderMenu';
+import { Footer } from './Footer';
+import { HeaderRaw as Header } from './Header/HeaderMenu';
 import { links } from './Header/links';
 import { HeaderInfo } from './HeaderInfo';
 
@@ -14,10 +15,10 @@ export const Layout: FC<LayoutProps> = ({ children, title, content }: LayoutProp
   return (
     <>
       <HeaderInfo title={title} content={content} />
-      <body>
-        <HeaderMenu links={links} />
+      <body className="h-auto">
+        <Header links={links} />
         <main>{children}</main>
-        <footer></footer>
+        <Footer />
       </body>
     </>
   )

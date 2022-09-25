@@ -19,6 +19,9 @@ export default function App(props: AppProps) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: 'light',
+          colors: {
+            brand: ['#ffe6e6', '#feb3b4', '#feb3b4', '#fd4f4f', '#fc1c1d', '#e30304', '#b00203', '#7e0202', '#4c0101', '#190000'],
+          }
         }}
       >
         <Layout>

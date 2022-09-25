@@ -10,25 +10,25 @@ export const links: HeaderSearchProps['links'] = [
       label: 'About',
       links: [
         {
-          link: '/leadership',
+          link: '/about/leadership',
           label: 'Leadership',
         },
         {
-          link: '/membership',
+          link: '/about/membership',
           label: 'Membership',
         },
         {
-          link: '/byylaws',
+          link: '/about/bylaws',
           label: 'Club Bylaws',
         },
         {
-          link: '/privacy',
+          link: '/about/privacy',
           label: 'Privacy Policy',
         },
       ],
     },
     {
-      link: 'https://www.downeastcyclists.com/#:~:text=About-,Events,-News',
+      link: 'https://www.meetup.com/Down-East-Cyclists/events/calendar/',
       label: 'Events'
     },
     {
@@ -40,11 +40,11 @@ export const links: HeaderSearchProps['links'] = [
       label: 'MTB Trails',
       links: [
         {
-          link: '/bigbranch',
+          link: '/trails/bigbranch',
           label: 'Big Branch Bike Park',
         },
         {
-          link: '/hendo',
+          link: '/trails/hendo',
           label: 'Henderson Pond MTB Trail',
         },
       ]

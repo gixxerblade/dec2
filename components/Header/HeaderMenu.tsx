@@ -1,10 +1,10 @@
 import { createStyles, Header, Menu, Group, Center, Burger, Container } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
 import Link from 'next/link';
 import { NextLink } from '@mantine/next';
 import { Dec } from '../../svgs/dec';
+import Image from 'next/image';
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -37,12 +37,12 @@ const useStyles = createStyles((theme) => ({
     padding: '8px 12px',
     borderRadius: theme.radius.sm,
     textDecoration: 'none',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    color: theme.colorScheme === 'dark' ? theme.colors.gray[0] : theme.colors.gray[9],
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
     '&:hover': {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+      color: theme.colorScheme === 'dark' ? theme.colors.brand[0] : theme.colors.brand[3],
     },
   },
 
@@ -55,7 +55,7 @@ export interface HeaderSearchProps {
   links: { link: string; label: string; links?: { link: string; label: string }[] }[];
 }
 
-export const HeaderMenu = ({ links }: HeaderSearchProps) => {
+export const HeaderRaw = ({ links }: HeaderSearchProps) => {
   const [opened, { toggle }] = useDisclosure(false);
   const { classes } = useStyles();
 
@@ -87,23 +87,28 @@ export const HeaderMenu = ({ links }: HeaderSearchProps) => {
     return (
       <Link
         href={link.link}
-        passHref key={link.label}
+        key={link.label}
         onClick={(event) => event.preventDefault()}
+        passHref
       >
         <a
           className={classes.link}
+          href={link.link}
         >
           {link.label}
         </a>
       </Link>
     );
   });
-  console.log(opened && items)
+
+  console.log(items)
   return (
     <Header height={56} mb={120}>
-      <Container className="">
+      <Container>
         <div className={classes.inner}>
-          <Dec width={100} />
+          <Link href="/" passHref>
+            <Image src="/dec.svg" alt="DEC logo" width={100} height={50} />
+          </Link>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
