@@ -12,6 +12,8 @@ TODO:
 - [] build big branch page
 - [] build hendo page
 - [] build contact page, add contact form. Can vercel handle this like netlify?
+- [] add protected route for admin dashboard
+- [] add admin dashboard for changing trail status
   
 ## Deploy on Vercel
 
