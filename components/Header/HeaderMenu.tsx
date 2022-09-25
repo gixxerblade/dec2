@@ -48,6 +48,7 @@ const useStyles = createStyles((theme) => ({
 
   linkLabel: {
     marginRight: 5,
+    cursor: 'pointer'
   },
 }));
 
@@ -67,18 +68,14 @@ export const HeaderRaw = ({ links }: HeaderSearchProps) => {
 
     if (menuItems) {
       return (
-        <Menu key={link.label} trigger="hover" exitTransitionDuration={0}>
+        <Menu key={link.label} trigger="hover" exitTransitionDuration={0} withArrow>
           <Menu.Target>
-            <a
-              className={classes.link}
-              href={link.link}
-              onClick={(event) => event.preventDefault()}
-            >
-              <Center>
+            <Center className={classes.link}>
+              <Link href={link.link}>
                 <span className={classes.linkLabel}>{link.label}</span>
-                <IconChevronDown size={12} stroke={1.5} />
-              </Center>
-            </a>
+              </Link>
+              <IconChevronDown size={12} stroke={1.5} />
+            </Center>
           </Menu.Target>
           <Menu.Dropdown>{menuItems}</Menu.Dropdown>
         </Menu>
@@ -106,7 +103,7 @@ export const HeaderRaw = ({ links }: HeaderSearchProps) => {
       <Container>
         <div className={classes.inner}>
           <Link href="/">
-            <a>
+            <a aria-label='link to home'>
               <Image
                 src={colorScheme === 'dark' ? '/dec_dark.svg' : '/dec.svg'}
                 alt="DEC logo"
@@ -119,6 +116,7 @@ export const HeaderRaw = ({ links }: HeaderSearchProps) => {
             {items}
             <ColorSchemeToggle />
           </Group>
+          {/* Responsive menu */}
           <div className='md:none lg:none xl:none 2xl:none'>
             <Menu
               offset={10}
