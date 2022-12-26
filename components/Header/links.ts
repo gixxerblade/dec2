@@ -28,7 +28,7 @@ export const links: HeaderSearchProps['links'] = [
       ],
     },
     {
-      link: 'https://www.meetup.com/Down-East-Cyclists/events/calendar/',
+      link: '/events',
       label: 'Events'
     },
     {
