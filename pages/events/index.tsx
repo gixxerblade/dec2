@@ -1,7 +1,9 @@
-import { Fragment, useEffect, useState } from 'react';
-import { Card, Image, Text, Badge, Button, Group, Stack, Container, Center, Loader, Title } from '@mantine/core';
-import Parser from "rss-parser";
+import { useState } from 'react';
+import { Card, Text, Button, Stack, Container, Center, Loader, Title, Flex } from '@mantine/core';
 import { useQuery } from 'react-query';
+import { Client } from '../../utils/Client';
+import { QueryKeys } from '../../utils/queryKeys';
+import { showNotification } from '@mantine/notifications';
 
 interface Event {
   node: {
@@ -13,33 +15,28 @@ interface Event {
     dateTime: Date,
   }
 }
-/**
- * {
-    "id": "290183582",
-    "eventType": "physical",
-    "shortUrl": "https://meetu.ps/e/LGMpv/8tGbg/i",
-    "imageUrl": "https://secure-content.meetupstatic.com/images/classic-events/497156061/676x380.webp",
-    "title": "MTB Monday's",
-    "eventUrl": "https://www.meetup.com/down-east-cyclists/events/290183582",
-    "description": "Mountain Bike Monday. Come join us to shred some gnar and send it on the best local MTB trail in the area.\nMeet at Big Branch Bike Park @ 5:30pm.\nAll levels welcome.",
-    "dateTime": "2022-12-26T17:30-05:00"
-}
- */
+
 interface Events {
   count: number,
   pageInfo: {},
   edges: Event[],
 }
 
+
+
 const Events = () => {
   const [events, setEvents] = useState<Events>();
 
-  const { isLoading, isFetching, isError } = useQuery('events', () => fetch('api/events'), {
-    onSuccess: async (res) => {
-      if (res.ok) {
-        const { groupByUrlname: { unifiedUpcomingEvents } } = await res.json()
-        setEvents(unifiedUpcomingEvents ?? null)
-      }
+  const { isLoading, isFetching, isError } = useQuery(QueryKeys.events, () => Client('events'), {
+    onError: (err: Error) => {
+      showNotification({
+        title: 'Error',
+        message: `Error getting current events\n${err.message}`
+      })
+    },
+    onSuccess: (res) => {
+      const { groupByUrlname: { unifiedUpcomingEvents } } = res;
+      setEvents(unifiedUpcomingEvents ?? null)
     },
     refetchOnWindowFocus: false,
   })
@@ -68,9 +65,9 @@ const Events = () => {
               <Text color="dimmed">Date: {new Date(node.dateTime).toDateString()}</Text>
             </Card.Section>
             <Card.Section pb={5} mb={5}>
-              <Center>
+              <Flex justify="flex-end" gap="md" p={15}>
                 <Button
-                  // color={theme.colors.brand[6]}
+                  color="brand"
                   component='a'
                   href={node.shortUrl}
                   rel="noopener noreferrer"
@@ -78,13 +75,14 @@ const Events = () => {
                 >
                   RSVP
                 </Button>
-              </Center>
+              </Flex>
             </Card.Section>
           </Card>
         ))}
       </Stack>
       <Center pt={5} mt={5}>
         <Button
+          color="brand"
           component='a'
           href='https://www.meetup.com/down-east-cyclists/events/'
           rel="noopener noreferrer"

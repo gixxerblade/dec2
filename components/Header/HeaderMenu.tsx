@@ -4,7 +4,7 @@ import { IconChevronDown } from '@tabler/icons';
 import Link from 'next/link';
 import { NextLink } from '@mantine/next';
 import Image from 'next/image';
-import { ColorSchemeToggle } from '../ColorSchemeTogle';
+import { ColorSchemeToggle } from '../ColorSchemeToggle';
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -86,10 +86,11 @@ export const HeaderRaw = ({ links }: HeaderSearchProps) => {
       <Link
         href={link.link}
         key={link.label}
-        onClick={(event) => {
-          console.log('clicked', link, link.link)
-          event.preventDefault()
-        }}
+        // Not needed?
+        // onClick={(event) => {
+        //   console.log('clicked', link, link.link)
+        //   event.preventDefault()
+        // }}
       >
         <a className={classes.link}>
           {link.label}

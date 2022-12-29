@@ -1,5 +1,7 @@
+import { StatusCodes } from 'http-status-codes';
 import Jwt from 'jsonwebtoken';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { handleError } from './handleErrors';
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   const accessURL = 'https://secure.meetup.com/oauth2/access';
@@ -68,8 +70,8 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         body: JSON.stringify(requestBody),
       })
       const { data } = await events.json();
-      res.status(200).send(data);
+      res.status(StatusCodes.OK).send(data);
     } catch (error) {
-      res.status(400).send(error);
+      handleError(res, error);
     }
 }

@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { Col, ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { Layout } from '../components/Layout';
 import { getCookie, setCookie } from 'cookies-next';
-
+import { NotificationsProvider } from '@mantine/notifications';
 
 interface MainProps extends AppProps {
   colorScheme: ColorScheme,
@@ -44,9 +44,11 @@ const App = (props: MainProps) => {
               }
             }}
           >
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <NotificationsProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </NotificationsProvider>
           </MantineProvider>
         </ColorSchemeProvider>
       </QueryClientProvider>

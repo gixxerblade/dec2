@@ -1,3 +1,4 @@
+import { AppShell } from '@mantine/core';
 import { ReactNode, FC } from 'react';
 import { Footer } from './Footer';
 import { HeaderRaw as Header } from './Header/HeaderMenu';
@@ -14,9 +15,12 @@ export const Layout: FC<LayoutProps> = ({ children, title, content }: LayoutProp
   return (
     <>
       <HeaderInfo title={title} content={content} />
-      <Header links={links} />
+      <AppShell
+        header={<Header links={links} />}
+        footer={<Footer />}
+      >
       <main>{children}</main>
-      <Footer />
+      </AppShell>
     </>
   )
 }

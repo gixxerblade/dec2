@@ -32,7 +32,7 @@ export const links: HeaderSearchProps['links'] = [
       label: 'Events'
     },
     {
-      link: '/blog',
+      link: '/news',
       label: 'News',
     },
     {
